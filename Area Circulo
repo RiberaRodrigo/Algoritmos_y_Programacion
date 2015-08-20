@@ -1,0 +1,31 @@
+# Algoritmos-y-Programacion
+#include "stdafx.h"
+#include "conio.h"
+#include "stdlib.h"
+#include <iostream>
+
+using namespace std;
+
+#define PI 3.1416
+
+float AreaCirculo(float R);
+
+float main()
+{
+	float R, Area;
+	cout << " Ingrese el Radio: ";
+	cin >> R;
+	Area = AreaCirculo(R);
+	cout << "\n El Area es: " << Area;
+	getch();
+	return 0;
+}
+
+//Funcion
+
+float AreaCirculo(float R)
+{
+	float Area;
+	Area = PI * R * R;
+	return Area;
+}
