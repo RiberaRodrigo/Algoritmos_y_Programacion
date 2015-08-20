@@ -1,0 +1,43 @@
+# Algoritmos-y-Programacion
+#include "stdafx.h"
+#include "conio.h"
+#include "stdlib.h"
+#include <iostream>
+
+using namespace std;
+
+#define AFP 0.121
+#define IVA 0.13
+#define SM 1420 //Salario Minimo
+
+void main()
+{
+	int i, N;
+	float Suma=0, Promedio, SB, SN=0;
+	
+	cout << "Ingrese cantidad de trabajadores: " << endl;
+	cin >> N;
+
+	for(i=0; i<N; i++)
+	{
+		cout << "Ingrese el salario del trabajador No. " << i+1 << ": " << endl;
+		cin >> SB;
+
+		if(SB < 1420)
+			cout << "ERROR: El Salario esta fuera de ley" << endl;
+		else
+		{
+			if(SB < SM*2)
+				SN = SB - (SB * AFP);
+			else
+				if(SB < 15000)
+					SN = SB - (SB * AFP) - (SB * IVA);
+				else
+					SN = SB - (SB * AFP) - (SB * IVA) - (SB * 0.01);
+		}
+		Suma = Suma + SN;
+	}
+	Promedio = Suma / i;
+	cout << "El promedio de los Salarios es: " << Promedio;
+	getch();
+}
