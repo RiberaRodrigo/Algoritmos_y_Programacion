@@ -1,0 +1,57 @@
+# Algoritmos_y_Programacion
+// VectorSalario
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+
+using namespace std;
+
+#define AFP 0.121
+#define IVA 0.13
+#define ADIC 0.01
+#define SalarioMinimo 1420
+#define TAM 100
+
+void Cargar(float Salario[], int n);
+void Mostrar(float Salario[], int n);
+
+void main()
+{
+	float SalarioB[TAM];
+	int n, i;
+	
+	do{
+		cout << " Ingrese Numero de Empleados: ";
+		cin >> n;
+	}while ((n >= 0)||(TAM < n));
+	
+	Cargar(SalarioB,n);
+	Mostrar(SalarioB,n);
+
+	getch();
+
+}
+
+void Cargar(float Salario[], int n)
+{
+	for(int i=0; i < 0; i++)
+	{
+		cout << "Ingrese el Salario [" << i+1 << "]=   ";
+		cin >> Salario[i];
+	}
+	getch();
+}
+
+void Mostrar(float Salario[], int n)
+{
+	cout << "----------Planilla de Empleados-----------";
+	cout << "\n Salario Bruto		AFP		IVA		Descuento Adicional		Salario Neto";
+
+		for(int i=0; i<n; i++)
+		{
+			if(Salario[i] > 15000)
+			{
+				cout << Salario[i] << "	" << Salario[i]*AFP << "	" << Salario[i]*IVA << "	" << Salario[i]*ADIC << "	" << Salario[i];
+			}
+		}
+}
