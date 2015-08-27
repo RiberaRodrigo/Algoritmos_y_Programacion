@@ -40,8 +40,8 @@ void main()
 		}
 		else
 		{
-			cout << "\nX1 = " << (-b / 2*a) << " + " << sqrt(-d) / 2*a << "i" << endl;
-			cout << "\nX2 = " << (-b / 2*a) << " - " << sqrt(-d) / 2*a << "i" << endl;
+			cout << "\nX1 = " << -b / (2*a) << " + " << sqrt(-d) / (2*a) << "i" << endl;
+			cout << "\nX2 = " << -b / (2*a) << " - " << sqrt(-d) / (2*a) << "i" << endl;
 			cout << "\nEL RESULTADO ES IMAGINARIO.\n\n\n";
 		}
 	}
