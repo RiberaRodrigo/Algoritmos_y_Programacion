@@ -18,40 +18,66 @@ void Mostrar(float Salario[], int n);
 void main()
 {
 	float SalarioB[TAM];
-	int n, i;
+	int n;
 	
 	do{
-		cout << " Ingrese Numero de Empleados: ";
+		cout << "	\n\nIngrese Numero de Empleados: ";
 		cin >> n;
-	}while ((n >= 0)||(TAM < n));
-	
-	Cargar(SalarioB,n);
-	Mostrar(SalarioB,n);
-
+		Cargar(SalarioB,n);
+		Mostrar(SalarioB,n);
+	}while ((n > 0)&&(n < TAM));
+		
 	getch();
 
 }
 
 void Cargar(float Salario[], int n)
 {
-	for(int i=0; i < 0; i++)
+	for(int i=0; i < n; i++)
 	{
 		cout << "Ingrese el Salario [" << i+1 << "]=   ";
 		cin >> Salario[i];
 	}
-	getch();
 }
 
 void Mostrar(float Salario[], int n)
 {
-	cout << "----------Planilla de Empleados-----------";
-	cout << "\n Salario Bruto		AFP		IVA		Descuento Adicional		Salario Neto";
+	cout << "		----------Planilla de Empleados-----------";
+	cout << "\nS.Bruto		AFP		IVA		Dto Adic.	S. Neto\n";
 
 		for(int i=0; i<n; i++)
 		{
 			if(Salario[i] > 15000)
 			{
-				cout << Salario[i] << "	" << Salario[i]*AFP << "	" << Salario[i]*IVA << "	" << Salario[i]*ADIC << "	" << Salario[i];
+				cout << Salario[i] << "		";
+				cout << Salario[i]*AFP << "		";
+				cout << Salario[i]*IVA << "		"; 
+				cout << Salario[i]*ADIC << "		"; 
+				cout << Salario[i]-Salario[i]*AFP-Salario[i]*IVA-Salario[i]*ADIC << endl;
+			}
+			else
+			{
+				if ((Salario[i] <= 15000) && (Salario[i] > SalarioMinimo*2))
+				{
+					cout << Salario[i] << "		";
+					cout << Salario[i]*AFP << "		";
+					cout << Salario[i]*IVA << "		"; 
+					cout <<  "0" << "		";
+					cout << Salario[i]-Salario[i]*AFP-Salario[i]*IVA << endl;
+				}
+				else
+				{
+					if ((Salario[i] <= SalarioMinimo*2) && (Salario[i] >= SalarioMinimo))
+					{
+						cout << Salario[i] << "		";
+						cout << Salario[i]*AFP << "		";
+						cout << "0" << "		";
+						cout << "0" << "		";
+						cout << Salario[i]-Salario[i]*AFP << endl;
+					}
+					else 
+						cout << "El Salario es menor al Salario Minimo, Se encuentra FUERA DE LEY";
+				}
 			}
 		}
 }
