@@ -1,0 +1,114 @@
+# Algoritmos_y_Programacion
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include <string>
+#include "stdlib.h"
+
+using namespace std;
+
+#define MAX 100
+
+void Multiplos(int A[], int n);
+void Clasificar(int A[], int n);
+void MostrarV(int A[], int n);
+float Promedio(int A[], int n);
+int ContarConsonantes(string frase);
+
+void main()
+{
+	int opcion, n, A[MAX], consonantes=0;
+	float prom;
+	string frase;
+	do{
+		cout << "---------------MENU---------------";
+		cout << "\n\n1. N numeros multiplos de 3";
+		cout << "\n2. Clasificacion descendente";
+		cout << "\n3. Promedio sin contar el menor y mayor";
+		cout << "\n4. Contar las consonantes de una frase";
+		cout << "\n0. SALIR";
+		cout << "\n\n Elija una opcion: ";
+		cin >> opcion;
+		system("cls");
+		switch(opcion)
+			{case 1:
+				do{
+					cout << "\nIngrese N: ";
+					cin >> n;}
+				while(n<=0 || n>MAX);
+				Multiplos(A,n);
+				break;
+			case 2:
+				Clasificar(A,n);
+				MostrarV(A,n);
+				break;
+			case 3:
+				prom = Promedio(A,n);
+				cout << "\n\n	El promedio del vector sin Mayor y Menor es: " << prom;
+				break;
+			case 4:
+				cout << "\n\n Ingresar una frase: ";
+				cin.ignore();
+				getline(cin, frase);
+				consonantes = ContarConsonantes(frase);
+				cout << "\n La frase tiene " << consonantes << " consonantes";
+				break;
+			case 0:
+				cout << "\n\n		Fin del Programa";
+				break;
+			default: cout << "\n\n		Opcion Invalida"; break;
+		}
+		getch();
+		system("cls");
+	}while(opcion!=0);
+	getch();
+}
+
+void Multiplos(int A[], int n)
+{
+	for(int i=0; i<n; i++)
+	{
+		A[i]= (i+1)*3;
+		cout << "["<< A[i] << "] ";
+	}
+}
+
+void Clasificar(int A[], int n)
+{
+	int aux;
+	for(int i = 0; i < n-1; i++)
+		for(int j = i+1; j < n; j++)
+			if(A[i]<A[j])
+			{
+				aux = A[i];
+				A[i] = A[j];
+				A[j] = aux;
+			}
+}
+
+void MostrarV(int A[], int n)
+{
+	for(int i=0; i<n; i++)
+		cout << "["<< A[i] << "] ";
+}
+
+float Promedio(int A[], int n)
+{
+	float S=0, c=0, P;
+	for(int i=1; i<n-1; i++)
+	{
+		S=S+A[i];
+		c++;
+	}
+	return P = S/c;
+}
+
+int ContarConsonantes(string frase)
+{
+	int c=0;
+	int longitud = frase.length();
+	for(int i=0; i < longitud; i++)
+		if(frase[i]!='a' && frase[i]!='e' && frase[i]!='i' && frase[i]!='o' && frase[i]!='u' && frase[i]!=' ')
+			c++;
+	return c;
+}
