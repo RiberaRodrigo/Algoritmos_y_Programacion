@@ -46,6 +46,7 @@ void cargar(tamigos amigos[], int n)
 		amigos[i].nombre = tempo;
 		cout << "\nIngrese la edad [" << i << "]= " ;
 		cin >> amigos[i].edad;
+		cin.ignore();
 	}
 }
 void mostrar(tamigos amigos[], int n)
