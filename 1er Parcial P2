@@ -1,0 +1,73 @@
+# Algoritmos_y_Programacion
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include <string>
+
+#define TAM 50
+
+using namespace std;
+
+struct tamigos
+{
+	string nombre;
+	int edad;
+};
+
+void cargar_vector (tamigos amigos[], int n);
+void mostrar_vector (tamigos amigos[], int n);
+void ordenar_vector (tamigos amigos[], int n);
+
+void main()
+{
+	int n;
+	tamigos amigos[TAM];
+	do{
+		cout << "Ingrese el Numero de elementos: ";
+		cin >> n;
+	}while ((n>=TAM) || (n<=0));
+	cargar_vector(amigos,n);
+	mostrar_vector(amigos,n);
+	ordenar_vector(amigos,n);
+	
+	getch();
+}
+
+void cargar(tamigos amigos[], int n)
+{
+	int i;
+	string tempo;
+	cin.ignore();
+	for(i=0;i<n;i++)
+	{ 
+		cout << "Ingrese el Nombre [" << i << "]= " ;
+		getline(cin, tempo);
+		amigos[i].nombre = tempo;
+		cout << "\nIngrese la edad [" << i << "]= " ;
+		cin >> amigos[i].edad;
+	}
+}
+void mostrar(tamigos amigos[], int n)
+{ 
+	int i;
+	for(i=0;i<n;i++)
+	{
+		cout << "vec [" << i << "]= " ;
+		cout << amigos[i].nombre << endl;
+		cout << amigos[i].edad << endl;
+	}
+}
+
+void ordenar(tamigos amigos[], int n)
+{
+	int i,j;
+	tamigos aux;
+	 for (i=0;i<n-1;i++)
+	       for (j=i+1;j<n;j++)
+			   if (amigos[i].edad>amigos[j].edad)
+			   { aux = amigos[j];
+	             amigos[j] = amigos[i];
+				 amigos[i] = aux;
+	           }
+}
