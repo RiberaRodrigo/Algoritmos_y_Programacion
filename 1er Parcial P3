@@ -1,0 +1,35 @@
+# Algoritmos_y_Programacion
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include <string>
+
+using namespace std;
+
+void Verificar(string pass, bool &k);
+
+int main()
+{
+	string pass;
+	cout << "Ingrese su contrasena: " ;
+	getline(cin, pass);
+	Validar(pass, k);
+	if(k)
+		cout << "\nContrasena Valida";
+	else
+		cout << "\nContrasena Invalida";
+	getch();
+}
+
+void Validar(string pass, bool &k)
+{
+	int longitud = pass.length();
+	k = true;
+	for(int i = 0; i<longitud; i++)
+		if(pass[i] == 'a'|| pass[i] == 'e'|| pass[i] == 'i'|| pass[i] == 'o'|| pass[i] == 'u'|| pass[i] == 'A'|| pass[i] == 'E'|| pass[i] == 'I'|| pass[i] == 'O'|| pass[i] == 'U')
+			k=false;
+	if(longitud > 10)
+		k=false;
+	return
+}
