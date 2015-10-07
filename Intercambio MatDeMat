@@ -1,0 +1,136 @@
+# Algoritmos_y_Programacion
+#include "stdafx.h"
+#include <iostream>
+#include <conio.h>
+
+using namespace std;
+
+#define fil 30
+#define col 30
+
+struct telemento
+{
+	int mat[fil][col];
+};
+
+void llenar_auto(telemento M[fil][col], int n)
+{
+	int i, j, k, l;
+	//srand(time(NULL)); // Genera los números randomicamente
+	for(i=0;i<n;i++)
+			for(j=0;j<n;j++)
+				for(k=0;k<n;k++)
+					for(l=0;l<n;l++)
+				// Referencia a la matriz dentro de la matriz
+					{
+						cout << "M[" <<i<<", " <<j<<"] ["<<k<<", "<<l<<"]= ";
+						cin >> M[i][j].mat[k][l];
+						//M[i][j].mat[k][l]=rand() %10;
+					}
+}
+ 
+void mostrar2 (telemento M[fil][col], int n)
+{
+	int i, j, k, l;
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<n;j++)
+		{
+			for(k=0;k<n;k++)
+			{
+				for(l=0;l<n;l++)
+					{
+						cout<<M[i][j].mat[k][l]<<" ";
+					}
+				cout<<endl;
+			}
+			cout<<endl;
+		}
+		cout<<endl;
+	}
+	cout<<endl;
+}
+
+
+void cambio_dp(int M[fil][col], int n)
+{
+	int i, aux;
+	for(i=0;i<n/2;i++)
+		{
+			aux = M[i][i];
+			M[i][i] = M[n-1-i][n-1-i];
+			M[n-1-i][n-1-i] = aux;
+		}
+}
+
+void cambio_ds(int M[fil][col], int n)
+{
+	int i, aux;
+	for(i=0;i<n/2;i++)
+		{
+			aux = M[i][n-1-i];
+			M[i][n-1-i] = M[n-1-i][i];
+			M[n-1-i][i] = aux;
+		}
+}
+
+void cambio (int A[fil][col], int n, int B[fil][col])
+{int i, j, aux;
+	for(i=0;i<n/2;i++)
+		for(j=0;j<n/2;j++)
+			{
+				aux = A[i][j];
+				A[i][j] = B[i][j];
+				B[i][j] = aux;
+			}
+}
+
+void intercambio(telemento M[fil][col], int n)
+{
+	int i, j;
+	for(i=0;i<n/2;i++)
+			cambio(M[i][i].mat,n, M[n-1-i][n-1-i].mat);
+	for(i=0;i<n/2;i++)
+			cambio(M[n-1-i][i].mat,n, M[i][n-1-i].mat);
+	for(i=0;i<n/2;i++)
+	{
+		cambio_dp(M[i][i].mat,n);
+		cambio_ds(M[n-i-1][i].mat,n);
+	}
+}
+
+void mostrar(telemento M[fil][col], int n)
+{int i, j, k, l;
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<n;j++)
+		{
+			for(k=0;k<n;k++)
+			{
+				for(l=0;l<n;l++)
+					{
+						cout<<M[i][j].mat[k][l]<<" ";
+					}
+				cout<<endl;
+			}
+			cout<<endl;
+		}
+		cout<<endl;
+	}
+	cout<<endl;
+}
+
+void main()
+{int n;
+	telemento M[fil][col];
+
+	cout << "Ingrese cantidad de filas=columnas: ";
+	cin >> n;
+
+	llenar_auto(M,n);
+	mostrar2(M,n);
+	intercambio(M,n);
+	mostrar(M,n);
+
+	getch();
+}
