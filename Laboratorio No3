@@ -1,0 +1,156 @@
+# Algoritmos_y_Programacion
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include <string>
+#include "stdlib.h"
+using namespace std;
+
+#define fil 10
+#define col 10
+#define TAM 50
+
+struct t_contactos
+{
+	string nombre;
+	int telefono;
+};
+
+
+
+void Cargar_Contactos(t_contactos registro[], int n);
+void Mostrar_Contactos(t_contactos registro[], int n);
+void Clasificar_Directorio(t_contactos registro[], int n);
+void Cargar_Matriz(int M[fil][col], int n, int m);
+void Mostrar_Matriz(int M[fil][col], int n, int m);
+void Transpuesta_Matriz(int M[fil][col], int n, int m);
+
+void main()
+{
+	int opcion, n, m, M[fil][col];
+	t_contactos registro[TAM];
+	do{
+	
+		cout << "\n******************** M E N U ********************";
+		cout << "\n\n1. Registrar Contactos";
+		cout << "\n2. Listar por nombre";
+		cout << "\n3. Matriz ordenada por columnas";
+		cout << "\n4. Matriz Transpuesta";
+		cout << "\n0. Salir del programa";
+		cout << "\n\n		Opcion: ";
+		cin >> opcion;
+		system("cls");
+		switch(opcion)
+		{
+			case 1:
+				cout << "\n\n\n Cantidad de contactos: ";
+				cin >> n;
+				Cargar_Contactos(registro, n);
+				system("cls");
+				Mostrar_Contactos(registro,n);
+				break;
+			case 2:
+				Clasificar_Directorio(registro, n);
+				Mostrar_Contactos(registro,n);
+				break;
+			case 3:
+				break;
+			case 4:
+				cout << "\n\n\n Cantidad de filas: ";
+				cin >> n;
+				cout << "\nCantidad de columnas: ";
+				cin >> m;
+				Cargar_Matriz(M,n,m);
+				Mostrar_Matriz(M,n,m);
+				Transpuesta_Matriz(M,n,m);
+				break;
+			case 0:
+				cout << "\n\n\n\n		Fin del Programa";
+				break;
+			default: cout << "\n\n\n\n		Opcion Invalida"; 
+				getch();
+				system("cls");
+				break;
+		}
+	}while(opcion != 0);
+	
+	getch();
+}
+
+void Cargar_Contactos(t_contactos registro[], int n)
+{
+	int i;
+	cin.ignore();
+	for(i = 0; i < n; i++)
+	{
+		cout << "\n Ingrese el nombre: ";
+		getline(cin, registro[i].nombre);
+		cout << "	Telefono: ";
+		cin >> registro[i].telefono;
+		cin.ignore();
+	}
+	getch();
+}
+
+void Mostrar_Contactos(t_contactos registro[], int n)
+{
+	int i;
+	cout << "\n\nNo.	 NOMBRE				TELEFONO" << "\n\n";
+	for(i = 0; i < n; i++)
+	{
+		cout << i+1 << "	"; 
+		cout << registro[i].nombre << "				";
+		cout << registro[i].telefono << endl;;
+	}
+	getch();
+	system("cls");
+}
+
+void Clasificar_Directorio(t_contactos registro[], int n)
+{
+	int i, j;
+	t_contactos aux;
+	for(i = 0 ; i < n-1 ; i++)
+		for(j = i+1 ; j < n ; j++)
+			if(registro[i].nombre > registro[j].nombre)
+			{
+				aux = registro[i];
+				registro[i] = registro[j];
+				registro[j] = aux;
+			}
+	getch();
+}
+
+void Cargar_Matriz(int M[fil][col], int n, int m)
+{
+	int i, j;
+	for(i=0; i<n; i++)
+		for(j=0; j<m; j++)
+		{
+			cout << "M[" << i << "," << j "]= " << endl;
+			cin >> M[i][j];
+		}
+}
+
+void Mostrar_Matriz(int M[fil][col], int n, int m)
+{
+	int i, j;
+	for(i=0; i<n; i++)
+	{
+		for(j=0; j<m; j++)
+			cout <<  M[i][j] << " ";
+		cout << endl;
+	}
+}
+
+void Transpuesta_Matriz(int M[fil][col], int n, int m)
+{
+	int i, j;
+	for(i=0; i<n; i++)
+	{
+		for(j=0; j<m; j++)
+			cout <<  M[j][i] << " ";
+		cout << endl;
+	}
+}
+
