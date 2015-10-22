@@ -1,0 +1,81 @@
+# Algoritmos_y_Programacion
+//librerias
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include <string>
+#include "stdlib.h"
+
+using namespace std;
+
+// estructuras y files
+struct t_registro{
+	int		no_prod; 
+	string	descrip;
+	float	cantidad;
+	float	precio;
+	char	garantia;
+};
+
+t_registro Registro;
+FILE *alias;
+//prototipos
+void ALTA_SECUENCIAL(void) ;
+
+//main
+
+void main(){
+	
+	ALTA_SECUENCIAL();
+	getch();
+
+}
+
+
+void ALTA_SECUENCIAL(void) 
+{ 
+  int no_prod;  // Variable local para el numero de producto 
+  system ("cls");
+  cout << "\n\rALTAS DE REGISTROS DE PRODUCTOS"; 
+  alias=fopen("PRODUCTO.SEC","r+"); // Intenta abrir el archivo  
+  cout << "\n\n\n\rNumero de producto: ";
+  cin >> no_prod;                                  // en modo de lectura/escritura 
+  if(alias==NULL) 
+    alias=fopen("PRODUCTO.SEC","w"); // Crea el archivo en caso de no 
+  else{                                 // existir 
+ 
+  fread(&Registro,sizeof(Registro),1,alias); 
+  // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias" 
+  while(!feof(alias)) // Ciclo mientras no se encuentre el final del 
+                      // archivo 
+  { 
+    if(Registro.no_prod==no_prod) 
+    { 
+       cout << "\n\n\n\rRegistro duplicado !!!"; 
+       fclose(alias); 
+       getch(); 
+       return; 
+    } 
+    fread(&Registro,sizeof(Registro),1,alias); 
+  } 
+  }
+  cout << "\n\rDescripcion: ";
+  cin.ignore();
+  getline(cin,Registro.descrip);
+  cout << "\n\rCantidad   : "; 
+  cin >> Registro.cantidad; 
+  cout << "\n\rPrecio     : "; 
+  cin >> Registro.precio; 
+  do 
+  { 
+    cout << "\n\rGarantia   : ";
+	Registro.garantia=toupper(getche()); 
+  }while(Registro.garantia!='S' && Registro.garantia!='N'); 
+  Registro.no_prod=no_prod; 
+  fwrite(&Registro,sizeof(Registro),1,alias); // Grabar el Registro  
+  fclose(alias); // Cierra el archivo 
+  cout << "\n\n\n\rProducto registrado !!!"; 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  getch(); 
+  return; 
+} 
