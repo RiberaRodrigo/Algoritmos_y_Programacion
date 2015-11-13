@@ -1,0 +1,91 @@
+# Algoritmos_y_Programacion
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include <string>
+#include "stdlib.h"
+
+using namespace std;
+
+#define max 10
+
+struct t_Vector{
+	string Vec[max];
+};	
+t_Vector Matriz[max][max];
+
+void CargarCadenas(string V[max], int n);
+void Cargar(t_Vector Matriz[max][max], int n);
+void Mostrar(t_Vector Matriz[max][max], int n);
+
+void main()
+{
+	int n;
+	string V[max];
+	string Cadena;
+	do{
+		cout << "\n\n\n Ingrese el numero de elementos: ";
+		cin >> n;
+	}while(n<=0 || n>10);
+
+	Cargar(Matriz,n);
+	Mostrar(Matriz,n);
+
+	getch();
+}
+
+void CargarCadenas(string V[max], int n)
+{
+	int i;
+	cin.ignore();
+	for(i=0;i<n;i++)
+	{
+		cout << "Ingrese cadena "<<i+1<<": ";
+		getline(cin, V[i]);
+		cout << endl;
+		cin.ignore();
+	}
+}
+
+
+void Cargar(t_Vector Matriz[max][max], int n)
+{
+	int i, j, k, p=0;
+	string Vect[max];
+	string Cadena;
+	int longitud, L;
+
+	CargarCadenas(Vect,n);
+	
+	for(i=0; i < n; i++)
+	{
+		longitud = Vect[i].length();
+		L=longitud/n;
+		for(j=0; j < n; j++)
+		{
+			for(k=0; k < n; k++)
+					Matriz[i][j].Vec[k] = Vect[i].substr(p,L);
+			p=p+L;
+		}
+		p=0;
+	}
+
+}
+
+
+void Mostrar(t_Vector Matriz[max][max], int n)
+{
+	int i, j, k;
+	for(i=0; i < n; i++)
+	{
+		for(j=0; j < n; j++)
+		{
+			for(k=0; k < n; k++)
+			{
+				cout << "["<<i<<"]["<<j<<"].["<<k<<"]= " << Matriz[i][j].Vec[k] <<"\t";
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+}
