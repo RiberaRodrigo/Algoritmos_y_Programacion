@@ -1,0 +1,168 @@
+# Algoritmos_y_Programacion
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include <string>
+#include "stdlib.h"
+
+using namespace std;
+
+struct Planilla
+{
+	int idPlani;
+	int idEtapa;
+	int idPiloto;
+	int horas;
+	int minutos;
+};
+
+struct Piloto
+{
+	int idPiloto;
+	string Nombre;
+	int NroCoche;
+};
+
+struct Etapa
+{
+	int idEtapa;
+	string desde;
+	string hasta;
+	int distancia;
+};
+
+
+
+void CargarVector()
+{
+	int N, i, M;
+	Piloto V1[10];
+	Etapa V2[10];
+	FILE *alias;
+	alias = fopen("planilla.dat","wb+");
+	if(alias != NULL)
+	{
+		cout << "Nro de Pilotos: ";
+		cin >> N;
+		while( i < N)
+		{
+			cout << "Ingrese el Id del Piloto: ";
+			cin >> V2[i].idEtapa;
+			cin.ignore();
+			cout << "\nIngrese el Origen de la Etapa: ";
+			getline(cin, V2[i].desde);
+			cout << "\nIngrese la distancia de la etapa: ";
+			cin >> V2[i].distancia;
+			cin.ignore();
+			cout << "\nIngrese el Destino de la Etapa: ";
+			getline(cin, V2[i].hasta);
+			fwrite(&V1, sizeof(V1), 1, alias);
+			i++;
+		}
+
+		cout << "\n\nNro de Etapas: ";
+		cin >> M;
+		while( i < M)
+		{
+			cout << "\nIngrese el Id de la Etapa: ";
+			cin >> V2[i].idEtapa;
+			cin.ignore();
+			cout << "\nIngrese el Id del Piloto: ";
+			getline(cin, V1[i].Nombre);
+			cout << "\nIngrese el Numero de Coche: ";
+			cin >> V1[i].NroCoche;
+			fwrite(&V2, sizeof(V2), 1, alias);
+			i++;
+		}
+	}
+}
+
+void Cargar()
+{
+	int N, i;
+	Planilla registro;
+	FILE *alias;
+	alias = fopen("planilla.dat","wb+");
+	if(alias != NULL)
+	{
+		cout << "Nro de Planillas: ";
+		cin >> N;
+		while( i < N)
+		{
+			cout << "Ingrese el Id de la Plantilla: ";
+			cin >> registro.idPlani;
+			//cout << "Ingrese el Id del Piloto: ";
+			//cin >> registro.idPiloto;
+			//cout << "Ingrese el Id de la Etapa: ";
+			//cin >> registro.idEtapa;
+			cout << "Ingrese las horas: ";
+			cin >> registro.horas;
+			cout << "Ingrese los minutos: ";
+			cin >> registro.minutos;
+			fwrite(&registro, sizeof(registro), 1, alias);
+			i++;
+		}
+	}
+	fclose(alias);
+}
+
+
+void Horas_Minutos(int NroPILOTO)
+{
+	int horas = 0;
+	int minutos = 0;
+	Planilla registro;
+	FILE *alias;
+	alias = fopen("planilla.dat", "rb");
+
+	if(alias != NULL)
+	{
+		fread(&registro, sizeof(registro), 1, alias);
+		while(!feof(alias))
+		{
+			if(registro.idPiloto == NroPILOTO)
+			{
+				horas = horas + registro.horas;
+				minutos = minutos + registro.horas;
+			}
+			fread(&registro, sizeof(registro), 1, alias);
+		}
+		fclose(alias);
+	}
+}
+
+void Reporte()
+{
+	Planilla registro1;
+	Piloto registro2;
+	int DistTotal = 896;
+	FILE *alias;
+	alias = fopen("plantilla.dat", "rb");
+	if(alias != NULL)
+	{
+		fread(&registro1, sizeof(registro1), 1, alias);
+		fread(&registro2, sizeof(registro2), 1, alias);
+		while(!feof(alias))
+		{
+			cout << registro1.idPiloto << "\t" << registro2.Nombre << "\t" << registro2.NroCoche << "\t" << DistTotal << "\t"; 
+			fread(&registro1, sizeof(registro1), 1, alias);
+			fread(&registro2, sizeof(registro2), 1, alias);
+		}
+		fclose(alias);
+	}
+	else
+		cout << "\n\n\nEl Archivo No Existe";
+
+}
+
+void main()
+{
+	CargarVector();
+	Cargar();
+	int NroPiloto;
+	cout << "\n\nIntroducir Id del piloto: ";
+	cin >> NroPiloto;
+	Horas_Minutos(NroPiloto);
+	Reporte();
+	getch();
+}
